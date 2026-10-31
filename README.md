@@ -1,63 +1,78 @@
-# Flutter Widget Preview Plugin for Antigravity
+# Flutter Widget Studio (Flutter Widget Preview)
 
-[![Antigravity Plugin](https://img.shields.io/badge/Antigravity-Plugin-4285F4)](https://antigravity.google)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-
-An interactive **Widget Studio & Preview Canvas** sidecar plugin for Google Antigravity. Renders isolated Flutter widgets and screens with live interactive property controls without having to launch a full mobile emulator or desktop application.
+> An interactive visual Storybook & real-time preview sidecar for **Google Antigravity**. Preview and test isolated Flutter widgets, dialogs, and full screens instantly without launching an emulator or mobile device build.
 
 ---
 
-## ✨ Features
-
-- ⚡ **Instant Headless Render**: Uses Flutter's test canvas engine (`--no-pub` + `--update-goldens`) to render sharp, pixel-perfect widget snapshots in seconds.
-- 🎨 **Font & Glyph Emulation**: Pre-loads Material Icons, Cupertino Icons, and automatically detects Google Fonts and project custom fonts from AST and `pubspec.yaml`, eliminating solid Ahem test blocks.
-- 🖼️ **Local Asset & Network Resilience**: Transparently reads disk `assets/` and intercepts image network calls so components never fail due to missing HTTP or asset bundle bounds.
-- 🎛️ **Storybook Control Sidebar**:
-  - Dynamically extracts constructor parameters (Strings, booleans, colors, enums, numbers, callbacks, domain models).
-  - Smart heuristic seeding (e.g. populates realistic names, titles, prices, avatar URLs).
-  - Collapsible sidebar (`☰`) and draggable horizontal resizer.
-- 📱 **Multi-Device & Responsive Preview**: Switch between mobile and tablet viewports, dark/light themes, and custom text scales.
-- 🔄 **Real-Time Project Path Switcher**: Change between Flutter repositories seamlessly from the top toolbar.
+<p align="center">
+  <img src="assets/preview_demo.png" alt="Flutter Widget Studio UI Preview" width="850" />
+</p>
 
 ---
 
-## 🚀 Installation & Usage
+## 🌟 What is Flutter Widget Studio?
 
-### Installing via Antigravity Plugin Manager
-```bash
-agy plugin install flutter-widget-preview
-```
+When building Flutter apps, running a full mobile emulator or waiting for full app rebuilds just to adjust UI components, padding, colors, or themes can slow down your design workflow.
 
-### Manual Installation
-Clone or copy this repository into your local Antigravity plugin directory:
-- **Windows**: `%USERPROFILE%\.gemini\config\plugins\flutter-widget-preview`
-- **macOS / Linux**: `~/.gemini/config/plugins/flutter-widget-preview`
-
-Then validate and enable the plugin:
-```bash
-agy plugin validate ~/.gemini/config/plugins/flutter-widget-preview
-agy plugin enable flutter-widget-preview
-```
+**Flutter Widget Studio** opens an interactive visual canvas directly inside the Antigravity sidecar pane. It automatically analyzes your Flutter codebase, extracts every widget and screen, provides live controls to edit parameters on the fly, and displays a pixel-perfect preview in seconds.
 
 ---
 
-## 🛠 Project Structure
+## 🧭 Interface & Control Guide
 
+Here is a breakdown of every button, menu, and control available in Flutter Widget Studio:
+
+### 1. Top Navigation Toolbar
+
+| Control | Description |
+| :--- | :--- |
+| **☰ (Hamburger Menu)** | Collapses or expands the left parameter sidebar so you can focus entirely on the full-screen preview canvas. |
+| **Viewport Selector** | Switch between device form-factors on the fly (e.g. *iPhone 16 Pro*, *iPad Air*, *Pixel 8*, *Desktop / Web*). The canvas instantly resizes to the exact dimensions of that device. |
+| **Theme Toggle** | Switch between **Light** and **Dark** mode to verify contrast, card styling, and theme colors without touching code. |
+| **↻ Rescan AST** | Click this after adding new widgets, editing constructors, or changing files. The studio rescans your project and refreshes the widget list and parameter inputs. |
+| **⚡ Re-Render** | Force a fresh render of the active widget canvas with all your current sidebar values. |
+
+---
+
+### 2. Project Path Bar
+
+```text
+Project: E:\YourFlutterApp                                      [ Set Path ]
 ```
-flutter-widget-preview/
-├── plugin.json                    # Plugin manifest and capability declarations
-├── README.md                      # Documentation & usage guide
-├── LICENSE                        # Apache 2.0 License
-├── sidecars/
-│   └── flutter-preview/
-│       ├── sidecar.json           # Aux pane sidecar configuration
-│       ├── package.json           # Node environment dependencies
-│       ├── server.mjs             # AST scanner, test snapshot runner & HTTP API
-│       └── studio.html            # Webview UI (Sidebar, Canvas, Shimmer)
-└── skills/
-    └── flutter-preview/
-        └── SKILL.md               # AI agent instructions for widget preview workflows
-```
+- **Project Path Input**: Easily switch between multiple Flutter repositories or monorepo packages. Simply type or paste your project folder path and click **Set Path**.
+- The studio automatically detects your widgets, models, enums, assets, and Google Fonts.
+
+---
+
+### 3. Left Control Sidebar & Parameters
+
+- **Draggable Border**: Drag the vertical divider between the sidebar and canvas to customize your sidebar width.
+- **Discovered Widgets Dropdown**: Search or select any widget or screen discovered in your project (e.g., `DeleteProfileScreen`, `PostCard`, `LoginScreen`, `CustomButton`).
+- **Live Parameter Controls**: When a widget has configurable properties, the studio dynamically renders dedicated controls:
+  - **Text Fields**: Edit string values like usernames, titles, or body copy.
+  - **Toggles / Switches**: Flip booleans (`isLoading`, `isLiked`, `hasNotification`).
+  - **Color Pickers**: Select custom colors directly.
+  - **Dropdowns**: Choose enum values (`BadgeType`, `UserRole`, `Alignment`).
+  - **Smart Mock Seeding**: Nullable or required values are seeded automatically with realistic mock data (e.g., sample user names, realistic dates, avatar URLs).
+
+---
+
+### 4. Live Preview Canvas
+
+- **Device Frame**: Shows your widget rendered exactly as it will appear on real mobile and tablet devices.
+- **Shimmer Loading State**: While rendering, an elegant shimmer effect indicates that your preview is updating.
+- **Real Text & Icons**: Automatically renders crisp fonts (Google Fonts, custom fonts) and Material/Cupertino icons with zero missing glyph blocks.
+- **Network & Asset Safety**: Network image calls and local assets are handled safely so your isolated components never throw network timeouts or crash on missing data.
+
+---
+
+## 🚀 How to Use
+
+1. Open **Flutter Widget Preview** in your Antigravity sidecar pane.
+2. Enter your Flutter project path in the top bar and click **Set Path**.
+3. Select any widget from the **Discovered Widgets** dropdown.
+4. Tweak properties in the sidebar or toggle Light/Dark themes and Viewports.
+5. Watch your UI update live on the canvas!
 
 ---
 
